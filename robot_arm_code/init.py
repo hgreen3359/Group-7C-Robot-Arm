@@ -41,11 +41,15 @@ def define_limits():
         "shoulder": (1400, 1500),
         "elbow": (1600, 1700),
         "gripper": (900, 2100),
-        "wrist": (2000, 2100),
+        "wrist_pitch": (1000, 2100),
+        "wrist_roll": (1000, 2000),
     }
     return LIMITS
 
-def INIT(port="COM5", baud=115200):
+
+
+
+def INIT(port="COM6", baud=115200):
     ser = serial.Serial(port, baud, timeout=2)
     ser.dtr = True
     ser.rts = True
@@ -61,3 +65,4 @@ def INIT(port="COM5", baud=115200):
     print("Q:", ser.read(ser.in_waiting or 1))
 
     return ser
+
