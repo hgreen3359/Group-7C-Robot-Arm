@@ -12,7 +12,15 @@ Run:  python trajectory.py      (writes trajectory.json)
 import json
 from math import atan2, acos, sqrt, sin, cos, radians, degrees
 from init import L0, L1, L2, L3, NUM_JOINTS, DT_MS, HOME, ZERO, SIGN, US_PER_DEG, LIMITS
-from robot_arm_code import trajectory
+
+import numpy as np
+from move import current
+
+
+
+
+
+
 
 
 # ------------------------------------------------------------- KINEMATICS ---
@@ -38,7 +46,32 @@ def angles_to_pulses(joint_angles):
         pulses.append(pulse)
     return pulses
 
+
+def angular_distance(pulses, current):
+
+    distance = sqrt((pulses[0]- current[0])**2+(pulses[1]- current[1])**2 + (pulses[2]- current[2])**2+(pulses[3]- current[3])**2)
+    print("angular distance", distance)
+
+    return distance
+
+
 #pca 9685 servo controller
-def create_trajectory():
-    step
-return trajectory
+def create_trajectory(x,y,z, joint_angles):
+    joint_angles = ik(x, y, z, 0)
+    pulses = angles_to_pulses(joint_angles)
+    distance = angular_distance(pulses, current)
+    time_steps = max(1, int(distance / 10))
+
+    
+    trajectory = []
+    for i in range(time_steps):
+        frame = []
+        for j in range(len(joint_angles)):
+            frame.append(int(
+                current[j] + (pulses[j] - current[j]) * (i + 1) / time_steps
+            ))
+        trajectory.append(frame) 
+
+    print("trajectory", trajectory)
+    return trajectory
+
