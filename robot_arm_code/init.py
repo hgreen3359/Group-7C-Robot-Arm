@@ -13,7 +13,7 @@ L1 = 14.61   # cm, shoulder -> elbow
 L2 = 18.73   # cm, elbow -> wrist
 L3 = 8.57    # cm, wrist -> gripper tip
  
-NUM_JOINTS = 5                      # channel: 0 base, 1 shoulder, 2 elbow, 3 wrist, 4 gripper
+NUM_JOINTS = 6                      # channel: 0 base, 1 shoulder, 2 elbow, 3 wrist, 4 gripper
 DT_MS = 20                          # one trajectory point per 20 ms servo period
 HOME = [1500, 1500, 1500, 1500, 1500]     # pulses (us) at start-up
  
