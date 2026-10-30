@@ -30,7 +30,12 @@ LIMITS = [(700, 2300)] * NUM_JOINTS # pulse limits (us) per channel - set the re
  
 
 
-
+def inital_coords():
+    x = 0
+    y = 0 
+    z = 0
+    
+    return x,y,z
 
 
 
@@ -49,7 +54,7 @@ def define_limits():
 
 
 
-def INIT(port="COM6", baud=115200):
+def INIT(port="COM4", baud=115200):
     ser = serial.Serial(port, baud, timeout=2)
     ser.dtr = True
     ser.rts = True
