@@ -8,7 +8,7 @@ import serial, time
 # Lynxmotion AL5D datasheet: shoulder-elbow 5.75", elbow-wrist 7.375",
 # wrist-gripper tip 3.375". L0 is derived from the 19.00" "reaching up" height.
 # Measure L0 on your arm, and update L1-L3 once your extension is fitted.
-L0 = 6.35    # cm, table to shoulder joint height (derived, approx)
+L0 =  6.35 # 6.35cm, table to shoulder joint height (derived, approx)
 L1 = 14.61   # cm, shoulder -> elbow
 L2 = 18.73   # cm, elbow -> wrist
 L3 = 8.57    # cm, wrist -> gripper tip
@@ -43,11 +43,11 @@ def inital_coords():
 def define_limits():
     LIMITS = {
         "base": (500, 2500),
-        "shoulder": (1400, 1500),
-        "elbow": (1600, 1700),
+        "shoulder": (500, 2500),
+        "elbow": (500, 2500),
         "gripper": (900, 2100),
-        "wrist_pitch": (1000, 2100),
-        "wrist_roll": (1000, 2000),
+        "wrist_pitch": (500, 1500),
+        "wrist_roll": (500, 2500),
     }
     return LIMITS
 

@@ -30,12 +30,31 @@ def ik(x, y, z, pitch_deg):
     wr = r - L3 * cos(pitch)    
     wz = (z - L0) - L3 * sin(pitch)
     c = (wr * wr + wz * wz - L1 * L1 - L2 * L2) / (2 * L1 * L2)
+
+
+    print("Horizontal radius:", r)
+    print("Wrist horizontal:", wr)
+    print("Wrist vertical:", wz)
+    print("Wrist distance:", sqrt(wr**2 + wz**2))
+
+    print("Minimum reach:", abs(L2-L1))
+    print("Maximum reach:", L1+L2)
+
+    print("Cosine value:", c)
+
+
+
+
     if abs(c) > 1:
         return None
     elbow = -acos(c)
     shoulder = atan2(wz, wr) - atan2(L2 * sin(elbow), L1 + L2 * cos(elbow))
     wrist = pitch - shoulder - elbow
     joint_angles = [atan2(y, x), shoulder, elbow, wrist]
+
+
+
+
     return joint_angles
 
 
@@ -44,6 +63,7 @@ def angles_to_pulses(joint_angles):
     for i in range(len(joint_angles)):
         pulse = round(1500 + SIGN[i] * (degrees(joint_angles[i]) - ZERO[i]) * US_PER_DEG)
         pulses.append(pulse)
+
     return pulses
 
 
@@ -56,12 +76,15 @@ def angular_distance(pulses, current):
 
 
 #pca 9685 servo controller
-def create_trajectory(x,y,z, joint_angles):
+def create_trajectory(x,y,z, current):
     joint_angles = ik(x, y, z, 0)
     pulses = angles_to_pulses(joint_angles)
     distance = angular_distance(pulses, current)
     time_steps = max(1, int(distance / 10))
 
+    print("Target:", x, y, z)
+    print("Joint angles:", [degrees(a) for a in joint_angles])
+    print("Target pulses:", pulses)
     
     trajectory = []
     for i in range(time_steps):
