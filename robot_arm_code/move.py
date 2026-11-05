@@ -4,11 +4,7 @@ import time
 CH = {"base": 0, "shoulder": 1, "elbow": 2, "wrist_pitch": 3, "wrist_roll": 4, "gripper": 5}
 current = [1500, 1500, 1500, 1500, 1500]  # pulses (us) at start-up
 
-<<<<<<< HEAD
 def move_to(ser, limits, joint, pos, current, t=5):
-=======
-def move_to(ser, limits, joint, pos, current, t=3000):
->>>>>>> 92b3339020624da1e95ffbbed7c0ade66c4cd0a2
     lo, hi = limits[joint]
     pos = max(lo, min(hi, pos))          # clamp to the safe range
     ser.write(f"#{CH[joint]} P{pos} T{t}\r".encode())
@@ -50,8 +46,15 @@ def home_position(ser, limits): # home position for the robot
     gripper_activate(ser, limits, open_close="open")
 
 
-<<<<<<< HEAD
+
+def send_trajectory(current, trajectory, ser, LIMITS):
+
+    for frame in trajectory:
+        current = move_to(ser, LIMITS, "base", frame[0], current=current)
+        current = move_to(ser, LIMITS, "shoulder", frame[1], current=current)
+        current = move_to(ser, LIMITS, "elbow", frame[2], current=current)
+        current = move_to(ser, LIMITS, "wrist_pitch", frame[3], current=current)
+        
+
+
     return current
-=======
-    return current
->>>>>>> 92b3339020624da1e95ffbbed7c0ade66c4cd0a2

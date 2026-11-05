@@ -43,7 +43,7 @@ def inital_coords():
 def define_limits():
     LIMITS = {
         "base": (500, 2500),
-        "shoulder": (500, 2500),
+        "shoulder": (500, 1900),
         "elbow": (500, 2500),
         "gripper": (900, 2100),
         "wrist_pitch": (500, 1500),
@@ -54,7 +54,7 @@ def define_limits():
 
 
 
-def INIT(port="COM4", baud=115200):
+def INIT(port="COM6", baud=115200):
     ser = serial.Serial(port, baud, timeout=2)
     ser.dtr = True
     ser.rts = True
