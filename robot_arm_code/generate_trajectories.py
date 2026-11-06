@@ -50,6 +50,7 @@ def ik(x, y, z, pitch_deg):
     elbow = -acos(c)
     shoulder = atan2(wz, wr) - atan2(L2 * sin(elbow), L1 + L2 * cos(elbow))
     wrist = pitch - shoulder - elbow
+
     joint_angles = [atan2(y, x), shoulder, elbow, wrist]
 
 

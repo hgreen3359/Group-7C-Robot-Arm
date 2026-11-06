@@ -1,7 +1,7 @@
 import time
 
 # Channel numbers: check these against your arm's wiring
-CH = {"base": 0, "shoulder": 1, "elbow": 2, "wrist_pitch": 3, "wrist_roll": 4, "gripper": 5}
+CH = {"base": 0, "shoulder": 1, "elbow": 2, "wrist_pitch": 3, "wrist_roll": 4, "gripper": 6}
 current = [1500, 1500, 1500, 1500, 1500]  # pulses (us) at start-up
 
 def move_to(ser, limits, joint, pos, current, t=5):
@@ -21,6 +21,7 @@ def move_to(ser, limits, joint, pos, current, t=5):
             current[3] = pos
         case "wrist_roll":
             current[4] = pos
+ 
 
     return current
         
@@ -28,22 +29,26 @@ def move_to(ser, limits, joint, pos, current, t=5):
 
 
 
-def gripper_activate(ser, limits, open_close):
+def gripper_activate(ser, limits,  open_close):
     lo, hi = limits["gripper"]
+
     if open_close == "open":
-        move_to(ser, limits, "gripper", hi, current )
+        move_to(ser, limits, "gripper", hi, current)
+
     elif open_close == "close":
         move_to(ser, limits, "gripper", lo, current)
 
+    return current
 
-def home_position(ser, limits): # home position for the robot
+
+def home_position(ser, limits ): # home position for the robot
     current = [1500, 1500, 1500, 1500, 1500]  
     move_to(ser, limits, "base", 1500, current)
     move_to(ser, limits, "shoulder", 1500, current)
     move_to(ser, limits, "elbow", 1500, current)
     move_to(ser, limits, "wrist_pitch", 1500, current)
     move_to(ser, limits, "wrist_roll", 1500, current   )
-    gripper_activate(ser, limits, open_close="open")
+    gripper_activate(ser, limits,  open_close="open")
 
 
 

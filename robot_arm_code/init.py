@@ -46,15 +46,18 @@ def define_limits():
         "shoulder": (500, 1900),
         "elbow": (500, 2500),
         "gripper": (900, 2100),
-        "wrist_pitch": (500, 1500),
+        "wrist_pitch": (500, 2500),
         "wrist_roll": (500, 2500),
     }
     return LIMITS
 
+def position_limits():
+    position_limits = {
+        "x": (23, )
+    }
 
 
-
-def INIT(port="COM6", baud=115200):
+def INIT(port="COM3", baud=115200):
     ser = serial.Serial(port, baud, timeout=2)
     ser.dtr = True
     ser.rts = True
