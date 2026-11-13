@@ -30,7 +30,7 @@ def move_to(ser, limits, joint, pos, current, t=5):
 
 
 def gripper_activate(ser, limits,  open_close):
-    lo, hi = limits["gripper"]
+    hi, lo = limits["gripper"]
 
     if open_close == "open":
         move_to(ser, limits, "gripper", hi, current)

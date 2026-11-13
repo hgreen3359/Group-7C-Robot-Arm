@@ -78,7 +78,7 @@ def angular_distance(pulses, current):
 
 #pca 9685 servo controller
 def create_trajectory(x,y,z, current):
-    joint_angles = ik(x, y, z, 0)
+    joint_angles = ik(x, y, z, -90)
     pulses = angles_to_pulses(joint_angles)
     distance = angular_distance(pulses, current)
     time_steps = max(1, int(distance / 10))

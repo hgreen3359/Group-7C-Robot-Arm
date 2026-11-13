@@ -24,7 +24,7 @@ HOME = [1500, 1500, 1500, 1500, 1500]     # pulses (us) at start-up
 #   wrist     : angle of link 3 relative to link 2
 #   gripper   : angle of link 4 relative to link 3
 ZERO = [0, 90, -90, 0, 0]              # geometric angle (deg) at a 1500 us pulse
-SIGN = [1, 1, 1, 1, 1]                 # flip to -1 if a servo is mounted reversed
+SIGN = [1, 1, -1, 1, 1]              # flip to -1 if a servo is mounted reversed
 US_PER_DEG = 10.0                   # calibrate against your servos
 LIMITS = [(700, 2300)] * NUM_JOINTS # pulse limits (us) per channel - set the real safe ranges
  
@@ -34,7 +34,6 @@ def inital_coords():
     x = 0
     y = 0 
     z = 0
-    
     return x,y,z
 
 
@@ -43,7 +42,7 @@ def inital_coords():
 def define_limits():
     LIMITS = {
         "base": (500, 2500),
-        "shoulder": (500, 1900),
+        "shoulder": (500, 2500),
         "elbow": (500, 2500),
         "gripper": (900, 2100),
         "wrist_pitch": (500, 2500),
@@ -57,7 +56,7 @@ def position_limits():
     }
 
 
-def INIT(port="COM3", baud=115200):
+def INIT(port="COM5", baud=115200):
     ser = serial.Serial(port, baud, timeout=2)
     ser.dtr = True
     ser.rts = True
