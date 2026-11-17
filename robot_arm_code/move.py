@@ -1,7 +1,7 @@
 import time
 
 # Channel numbers: check these against your arm's wiring
-CH = {"base": 0, "shoulder": 1, "elbow": 2, "wrist_pitch": 3, "wrist_roll": 4, "gripper": 6}
+CH = {"base": 0, "shoulder": 1, "elbow": 2, "wrist_pitch": 3, "wrist_roll": 4, "gripper": 5}
 current = [1500, 1500, 1500, 1500, 1500]  # pulses (us) at start-up
 
 def move_to(ser, limits, joint, pos, current, t=5):
